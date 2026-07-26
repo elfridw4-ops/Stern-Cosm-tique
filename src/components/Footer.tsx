@@ -1,5 +1,5 @@
-import React from 'react';
-import { Heart, Sparkles, MessageCircle, ArrowUp } from 'lucide-react';
+import React, { useState } from 'react';
+import { Heart, Sparkles, MessageCircle, ArrowUp, Share2, Copy, Check } from 'lucide-react';
 
 interface FooterProps {
   onOpenWhatsApp: () => void;
@@ -7,8 +7,39 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) => {
+  const [copied, setCopied] = useState(false);
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleShareWhatsApp = () => {
+    const text = "Découvre Stern Cosmétique — Beauté Naturelle & Élégante (Pack Spécial & Soins Botaniques) 🌿✨ :\nhttps://stern-cosm.vercel.app";
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleNativeShare = async () => {
+    const shareData = {
+      title: 'Stern Cosmétique — Beauté Naturelle & Élégante',
+      text: 'Découvre le Pack Spécial Stern et nos soins botaniques 100% naturels pour tous types de peau 🌿✨',
+      url: 'https://stern-cosm.vercel.app',
+    };
+
+    if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+      try {
+        await navigator.share(shareData);
+        return;
+      } catch {
+        // User canceled or device prevented share
+      }
+    }
+    handleShareWhatsApp();
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText('https://stern-cosm.vercel.app');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleNavScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -116,18 +147,64 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) =
             </ul>
           </div>
 
-          {/* Legal & Info */}
-          <div className="md:col-span-4 space-y-3 font-serif">
+          {/* Legal & Info + Sharing */}
+          <div className="md:col-span-4 space-y-4 font-serif">
             <h4 className="font-bold text-base text-white uppercase tracking-wider text-xs font-sans-ui text-[#F1D9C3]">
-              Engagement & Qualité
+              Engagement & Partage
             </h4>
             <p className="text-xs text-[#F1D9C3]/70 leading-relaxed">
-              100% formules vegan et cruelty-free. Expédition express sous 24h avec emballage soigné.
+              100% formules botaniques. Expédition express avec emballage soigné.
             </p>
 
-            <div className="pt-2 text-xs text-[#F1D9C3]/60 space-y-1">
+            {/* Share Site Box */}
+            <div className="p-3.5 rounded-2xl bg-white/5 border border-white/10 space-y-2.5">
+              <span className="text-xs font-sans-ui font-semibold text-[#F1D9C3] flex items-center gap-1.5">
+                <Share2 className="w-3.5 h-3.5 text-[#B5613C]" />
+                <span>Partager Stern Cosmétique (Story / Fil / WhatsApp)</span>
+              </span>
+              <p className="text-[11px] text-[#F1D9C3]/60 leading-tight">
+                Recommandez notre boutique <strong>stern-cosm.vercel.app</strong> (l'image du Pack Spécial s'affichera automatiquement dans votre story/fil).
+              </p>
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <button
+                  onClick={handleNativeShare}
+                  className="px-3 py-1.5 rounded-full bg-[#B5613C] hover:bg-[#9A4E2D] text-white text-xs font-sans-ui font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Partager dans votre story ou fil d'actualité"
+                >
+                  <Share2 className="w-3.5 h-3.5" />
+                  <span>Story & Fil</span>
+                </button>
+                <button
+                  onClick={handleShareWhatsApp}
+                  className="px-3 py-1.5 rounded-full bg-[#25D366] hover:bg-[#20ba5a] text-white text-xs font-sans-ui font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+                  title="Partager sur WhatsApp"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>WhatsApp</span>
+                </button>
+                <button
+                  onClick={handleCopyLink}
+                  className="px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs font-sans-ui font-medium transition-colors flex items-center gap-1.5 cursor-pointer"
+                  title="Copier le lien"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">Lien copié !</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-[#F1D9C3]" />
+                      <span>Copier lien</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            <div className="text-xs text-[#F1D9C3]/60 space-y-0.5">
               <p>Email: contact@sterncosmetique.com</p>
-              <p>Tél: +229 41 63 42 42</p>
+              <p>Tél / WhatsApp: +229 41 63 42 42</p>
             </div>
           </div>
 

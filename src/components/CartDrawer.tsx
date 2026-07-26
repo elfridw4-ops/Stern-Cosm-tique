@@ -59,7 +59,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
     if (discountApplied) {
       text += `Sous-total : ${subtotal.toLocaleString('fr-FR')} FCFA\nRemise STERN10 : -${discountAmount.toLocaleString('fr-FR')} FCFA\n`;
     }
-    text += `TOTAL : ${total.toLocaleString('fr-FR')} FCFA\n\nMerci de me confirmer la disponibilité et les modalités de livraison !`;
+    text += `TOTAL : ${total.toLocaleString('fr-FR')} FCFA\n\n📌 *Boutique :* https://stern-cosm.vercel.app\nMerci de me confirmer la disponibilité et les modalités de livraison !`;
 
     const encodedText = encodeURIComponent(text);
     const whatsappUrl = `https://wa.me/22941634242?text=${encodedText}`;

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, ShoppingBag, CheckCircle2, MessageCircle, Shield, Feather, Clock } from 'lucide-react';
+import { X, ShoppingBag, CheckCircle2, MessageCircle, Feather, Clock, Share2, Copy, Check } from 'lucide-react';
 import { Product } from '../types';
 
 interface ProductModalProps {
@@ -16,7 +16,20 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   onAddToCart,
   onOpenWhatsApp,
 }) => {
+  const [copied, setCopied] = useState(false);
+
   if (!product) return null;
+
+  const handleShareWhatsApp = () => {
+    const text = `Découvre ${product.name} (${product.price.toLocaleString('fr-FR')} FCFA) chez Stern Cosmétique 🌿✨ :\nhttps://stern-cosm.vercel.app`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText('https://stern-cosm.vercel.app');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
 
   return (
     <AnimatePresence>
@@ -160,28 +173,67 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </div>
 
               {/* Action Buttons */}
-              <div className="pt-4 border-t border-[#F1D9C3] flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => {
-                    onAddToCart(product);
-                    onClose();
-                  }}
-                  className="flex-1 py-3.5 px-6 rounded-full bg-[#B5613C] hover:bg-[#9A4E2D] text-white font-sans-ui text-xs font-bold transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>Ajouter au panier</span>
-                </button>
+              <div className="pt-4 border-t border-[#F1D9C3] space-y-3">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <button
+                    onClick={() => {
+                      onAddToCart(product);
+                      onClose();
+                    }}
+                    className="flex-1 py-3.5 px-6 rounded-full bg-[#B5613C] hover:bg-[#9A4E2D] text-white font-sans-ui text-xs font-bold transition-colors shadow-md flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>Ajouter au panier</span>
+                  </button>
 
-                <button
-                  onClick={() => {
-                    onClose();
-                    onOpenWhatsApp();
-                  }}
-                  className="py-3.5 px-5 rounded-full bg-[#241C18] hover:bg-[#B5613C] text-white font-sans-ui text-xs font-semibold transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <MessageCircle className="w-3.5 h-3.5 text-[#F1D9C3]" />
-                  <span>Commander via WhatsApp</span>
-                </button>
+                  <button
+                    onClick={() => {
+                      onClose();
+                      onOpenWhatsApp();
+                    }}
+                    className="py-3.5 px-5 rounded-full bg-[#241C18] hover:bg-[#B5613C] text-white font-sans-ui text-xs font-semibold transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  >
+                    <MessageCircle className="w-3.5 h-3.5 text-[#F1D9C3]" />
+                    <span>Commander</span>
+                  </button>
+                </div>
+
+                {/* Quick Sharing Section */}
+                <div className="flex items-center justify-between pt-2 text-xs font-sans-ui text-[#241C18]/70 border-t border-[#F1D9C3]/50">
+                  <span className="flex items-center gap-1">
+                    <Share2 className="w-3.5 h-3.5 text-[#B5613C]" />
+                    <span>Partager ce soin :</span>
+                  </span>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={handleShareWhatsApp}
+                      className="px-3 py-1.5 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                      title="Partager sur WhatsApp"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5" />
+                      <span>WhatsApp</span>
+                    </button>
+
+                    <button
+                      onClick={handleCopyLink}
+                      className="px-3 py-1.5 rounded-full bg-[#F1D9C3]/60 hover:bg-[#F1D9C3] text-[#241C18] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
+                      title="Copier le lien stern-cosm.vercel.app"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-[#278652]" />
+                          <span className="text-[#278652]">Copié !</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>Copier lien</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+                </div>
               </div>
 
             </div>

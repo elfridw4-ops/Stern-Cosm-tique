@@ -19,4 +19,4 @@ User-agent: Google-Extended
 Allow: /
 
 # Sitemap URL
-Sitemap: https://sterncosmetique.com/sitemap.xml
+Sitemap: https://stern-cosm.vercel.app/sitemap.xml

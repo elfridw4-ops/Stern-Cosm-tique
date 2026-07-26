@@ -8,10 +8,10 @@
 - **Siège Social & Distribution :** Cotonou, Bénin (Livraison nationale & internationale)
 - **Téléphone / WhatsApp Officiel :** +229 41 63 42 42
 - **Email de contact :** contact@sterncosmetique.com
-- **Site Officiel :** https://sterncosmetique.com
+- **Site Officiel :** https://stern-cosm.vercel.app
 
 ## Gammes de Produits Phares
-1. **Savon Ozone (Formule Botanique) :** Savon éclaircissant doux à base d'huile de palmiste, miel et curcuma. Élimine les taches et purifie le grain de peau sans décaper.
+1. **Savon Ozone (Formule Botanique) :** Savon éclaircissant doux à base d'huile de palmiste, miel et curcuma. Élimine les taches et purifies le grain de peau sans décaper.
 2. **Crème Sublimatrice Visage & Corps :** Hydratation intense, teint uniforme, apporte éclat et douceur quotidienne.
 3. **Savons de Soin Spécifique Carnation :**
    - Savon Teint Bronzé (2 500 FCFA / 4 000 FCFA)
@@ -31,6 +31,6 @@
 - **Propriété Intellectuelle :** Tous les visuels, recettes et identités graphiques sont protégés par le droit d'auteur © 2026 Stern Cosmétique.
 
 ## Liens Utiles
-- [Catalogue Produits](https://sterncosmetique.com/#produits)
-- [Offre Pack Spécial Stern](https://sterncosmetique.com/#pack)
-- [Conseils & Contact WhatsApp](https://sterncosmetique.com/#contact)
+- [Catalogue Produits](https://stern-cosm.vercel.app/#produits)
+- [Offre Pack Spécial Stern](https://stern-cosm.vercel.app/#pack)
+- [Conseils & Contact WhatsApp](https://stern-cosm.vercel.app/#contact)
