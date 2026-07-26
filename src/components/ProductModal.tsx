@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, ShoppingBag, CheckCircle2, MessageCircle, Feather, Clock, Share2, Copy, Check } from 'lucide-react';
 import { Product } from '../types';
+import { shareProduct } from '../utils/shareUtils';
 
 interface ProductModalProps {
   product: Product | null;
@@ -17,18 +18,26 @@ export const ProductModal: React.FC<ProductModalProps> = ({
   onOpenWhatsApp,
 }) => {
   const [copied, setCopied] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
   if (!product) return null;
 
-  const handleShareWhatsApp = () => {
-    const text = `Découvre ${product.name} (${product.price.toLocaleString('fr-FR')} FCFA) chez Stern Cosmétique 🌿✨ :\nhttps://stern-cosm.vercel.app`;
-    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
+  const handleNativeShare = async () => {
+    setIsSharing(true);
+    await shareProduct(product, 'native');
+    setIsSharing(false);
   };
 
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText('https://stern-cosm.vercel.app');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+  const handleShareWhatsApp = () => {
+    shareProduct(product, 'whatsapp');
+  };
+
+  const handleCopyLink = async () => {
+    const res = await shareProduct(product, 'copy');
+    if (res.copied) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
   };
 
   return (
@@ -199,17 +208,29 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 </div>
 
                 {/* Quick Sharing Section */}
-                <div className="flex items-center justify-between pt-2 text-xs font-sans-ui text-[#241C18]/70 border-t border-[#F1D9C3]/50">
-                  <span className="flex items-center gap-1">
-                    <Share2 className="w-3.5 h-3.5 text-[#B5613C]" />
-                    <span>Partager ce soin :</span>
-                  </span>
+                <div className="pt-3 border-t border-[#F1D9C3]/70 space-y-2">
+                  <div className="flex items-center justify-between text-xs font-sans-ui text-[#241C18]/80">
+                    <span className="flex items-center gap-1.5 font-bold text-[#B5613C]">
+                      <Share2 className="w-3.5 h-3.5" />
+                      <span>Partager ce produit ({product.name}) :</span>
+                    </span>
+                  </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      onClick={handleNativeShare}
+                      disabled={isSharing}
+                      className="px-3 py-1.5 rounded-full bg-[#B5613C] hover:bg-[#9A4E2D] text-white text-xs font-sans-ui font-bold transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs disabled:opacity-50"
+                      title="Partager le visuel exact du produit dans votre story ou fil"
+                    >
+                      <Share2 className="w-3.5 h-3.5" />
+                      <span>Story & Fil (Image)</span>
+                    </button>
+
                     <button
                       onClick={handleShareWhatsApp}
-                      className="px-3 py-1.5 rounded-full bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
-                      title="Partager sur WhatsApp"
+                      className="px-3 py-1.5 rounded-full bg-[#25D366]/15 hover:bg-[#25D366]/25 text-[#128C7E] text-xs font-sans-ui font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+                      title="Partager sur WhatsApp avec image et lien"
                     >
                       <MessageCircle className="w-3.5 h-3.5" />
                       <span>WhatsApp</span>
@@ -217,18 +238,18 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
                     <button
                       onClick={handleCopyLink}
-                      className="px-3 py-1.5 rounded-full bg-[#F1D9C3]/60 hover:bg-[#F1D9C3] text-[#241C18] font-semibold transition-colors flex items-center gap-1 cursor-pointer"
-                      title="Copier le lien stern-cosm.vercel.app"
+                      className="px-3 py-1.5 rounded-full bg-[#F1D9C3]/60 hover:bg-[#F1D9C3] text-[#241C18] text-xs font-sans-ui font-semibold transition-colors flex items-center gap-1.5 cursor-pointer"
+                      title="Copier le lien direct vers cette fiche produit"
                     >
                       {copied ? (
                         <>
                           <Check className="w-3.5 h-3.5 text-[#278652]" />
-                          <span className="text-[#278652]">Copié !</span>
+                          <span className="text-[#278652]">Lien copié !</span>
                         </>
                       ) : (
                         <>
                           <Copy className="w-3.5 h-3.5" />
-                          <span>Copier lien</span>
+                          <span>Copier le lien</span>
                         </>
                       )}
                     </button>

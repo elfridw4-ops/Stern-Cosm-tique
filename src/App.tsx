@@ -37,6 +37,90 @@ export default function App() {
     setIsLegalOpen(true);
   };
 
+  // Check initial deep link in URL for specific product
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const productIdFromQuery = params.get('product');
+      const hash = window.location.hash;
+      const productIdFromHash = hash.startsWith('#product-') ? hash.replace('#product-', '') : null;
+
+      const targetId = productIdFromQuery || productIdFromHash;
+      if (targetId) {
+        const found = PRODUCTS.find((p) => p.id === targetId);
+        if (found) {
+          setSelectedProduct(found);
+        }
+      }
+    } catch {
+      // Ignore URL parsing errors
+    }
+  }, []);
+
+  // Update dynamic head OG meta tags and URL when selectedProduct changes
+  useEffect(() => {
+    const updateMetaTag = (selector: string, attr: string, content: string) => {
+      let el = document.querySelector(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        if (selector.includes('property=')) {
+          const propName = selector.split('property="')[1]?.replace('"]', '');
+          if (propName) el.setAttribute('property', propName);
+        } else if (selector.includes('name=')) {
+          const nameValue = selector.split('name="')[1]?.replace('"]', '');
+          if (nameValue) el.setAttribute('name', nameValue);
+        }
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, content);
+    };
+
+    if (selectedProduct) {
+      const fullImageUrl = selectedProduct.image.startsWith('http')
+        ? selectedProduct.image
+        : `https://stern-cosm.vercel.app${selectedProduct.image}`;
+      const productUrl = `https://stern-cosm.vercel.app/?product=${selectedProduct.id}`;
+      const titleText = `${selectedProduct.name} (${selectedProduct.price.toLocaleString('fr-FR')} FCFA) — Stern Cosmétique`;
+      const descText = `${selectedProduct.name} : ${selectedProduct.description}`;
+
+      document.title = titleText;
+
+      updateMetaTag('meta[property="og:title"]', 'content', titleText);
+      updateMetaTag('meta[property="og:description"]', 'content', descText);
+      updateMetaTag('meta[property="og:image"]', 'content', fullImageUrl);
+      updateMetaTag('meta[property="og:image:secure_url"]', 'content', fullImageUrl);
+      updateMetaTag('meta[property="og:image:alt"]', 'content', selectedProduct.name);
+      updateMetaTag('meta[property="og:url"]', 'content', productUrl);
+
+      updateMetaTag('meta[name="twitter:title"]', 'content', titleText);
+      updateMetaTag('meta[name="twitter:description"]', 'content', descText);
+      updateMetaTag('meta[name="twitter:image"]', 'content', fullImageUrl);
+
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', `/?product=${selectedProduct.id}`);
+      }
+    } else {
+      document.title = 'Stern Cosmétique — Beauté Naturelle & Élégante';
+      const defaultImage = 'https://stern-cosm.vercel.app/images/pack-stern.jpeg';
+      const defaultUrl = 'https://stern-cosm.vercel.app/';
+
+      updateMetaTag('meta[property="og:title"]', 'content', 'Stern Cosmétique — Beauté Naturelle & Élégante');
+      updateMetaTag('meta[property="og:description"]', 'content', 'Découvrez le Pack Spécial Stern et nos soins cosmétiques d\'exception 100% naturels.');
+      updateMetaTag('meta[property="og:image"]', 'content', defaultImage);
+      updateMetaTag('meta[property="og:image:secure_url"]', 'content', defaultImage);
+      updateMetaTag('meta[property="og:url"]', 'content', defaultUrl);
+
+      updateMetaTag('meta[name="twitter:title"]', 'content', 'Stern Cosmétique — Beauté Naturelle & Élégante');
+      updateMetaTag('meta[name="twitter:description"]', 'content', 'Découvrez le Pack Spécial Stern et nos soins cosmétiques d\'exception 100% naturels.');
+      updateMetaTag('meta[name="twitter:image"]', 'content', defaultImage);
+
+      if (window.history && window.history.replaceState) {
+        const currentHash = window.location.hash.startsWith('#product-') ? '' : window.location.hash;
+        window.history.replaceState(null, '', `/${currentHash}`);
+      }
+    }
+  }, [selectedProduct]);
+
   useEffect(() => {
     try {
       localStorage.setItem('stern_cart', JSON.stringify(cartItems));

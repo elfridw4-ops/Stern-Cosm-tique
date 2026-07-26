@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ShoppingBag, Eye, MessageCircle, ArrowRight, Check, Loader2 } from 'lucide-react';
+import { ShoppingBag, Eye, MessageCircle, ArrowRight, Check, Loader2, Share2 } from 'lucide-react';
 import { Product, CategoryType } from '../types';
 import { PRODUCTS } from '../data/products';
+import { shareProduct } from '../utils/shareUtils';
 
 interface ProductCatalogProps {
   onAddToCart: (product: Product) => void;
@@ -122,12 +123,25 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
                 onClick={() => onOpenModal(product)}
                 className="group rounded-2xl bg-white border border-[#F1D9C3] overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between cursor-pointer relative"
               >
-                {/* Badge Tag */}
-                {product.badge && (
-                  <div className="absolute top-3 left-3 z-10 px-2.5 py-1 rounded-full bg-[#F1D9C3] border border-[#B5613C]/20 text-[11px] font-sans-ui font-bold text-[#B5613C] shadow-xs">
-                    {product.badge}
-                  </div>
-                )}
+                {/* Badge Tag & Share Action */}
+                <div className="absolute top-3 left-3 right-3 z-10 flex items-center justify-between pointer-events-none">
+                  {product.badge ? (
+                    <div className="px-2.5 py-1 rounded-full bg-[#F1D9C3] border border-[#B5613C]/20 text-[11px] font-sans-ui font-bold text-[#B5613C] shadow-xs pointer-events-auto">
+                      {product.badge}
+                    </div>
+                  ) : <div />}
+
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      shareProduct(product, 'native');
+                    }}
+                    className="p-2 rounded-full bg-white/90 hover:bg-white text-[#241C18] shadow-md transition-transform hover:scale-110 pointer-events-auto cursor-pointer"
+                    title={`Partager ${product.name} (image & lien)`}
+                  >
+                    <Share2 className="w-3.5 h-3.5 text-[#B5613C]" />
+                  </button>
+                </div>
 
                 {/* Image Container */}
                 <div className="relative aspect-[4/3] bg-[#FBE9E1] overflow-hidden">
