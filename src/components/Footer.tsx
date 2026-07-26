@@ -11,6 +11,21 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) =
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavScroll = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    if (targetId === 'hero') {
+      scrollToTop();
+      return;
+    }
+    const element = document.getElementById(targetId);
+    if (element) {
+      const yOffset = -80;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-[#241C18] text-[#FBE9E1] pt-16 pb-10 text-left border-t border-[#B5613C]/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -54,27 +69,47 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) =
             </h4>
             <ul className="space-y-2 text-sm text-[#F1D9C3]/80">
               <li>
-                <a href="#hero" className="hover:text-white transition-colors">
+                <a
+                  href="#hero"
+                  onClick={(e) => handleNavScroll(e, '#hero')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
                   Accueil
                 </a>
               </li>
               <li>
-                <a href="#produits" className="hover:text-white transition-colors">
+                <a
+                  href="#produits"
+                  onClick={(e) => handleNavScroll(e, '#produits')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
                   Catalogue Produits
                 </a>
               </li>
               <li>
-                <a href="#pack" className="hover:text-white transition-colors">
+                <a
+                  href="#pack"
+                  onClick={(e) => handleNavScroll(e, '#pack')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
                   Pack Spécial Stern
                 </a>
               </li>
               <li>
-                <a href="#pourquoi" className="hover:text-white transition-colors">
+                <a
+                  href="#pourquoi"
+                  onClick={(e) => handleNavScroll(e, '#pourquoi')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
                   Pourquoi choisir Stern
                 </a>
               </li>
               <li>
-                <a href="#contact" className="hover:text-white transition-colors">
+                <a
+                  href="#contact"
+                  onClick={(e) => handleNavScroll(e, '#contact')}
+                  className="hover:text-white transition-colors cursor-pointer"
+                >
                   Contact & Conseils
                 </a>
               </li>

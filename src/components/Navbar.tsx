@@ -47,6 +47,24 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Contact', href: '#contact' },
   ];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    setMobileMenuOpen(false);
+
+    const targetId = href.replace('#', '');
+    if (targetId === 'hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+
+    const element = document.getElementById(targetId);
+    if (element) {
+      const yOffset = -80;
+      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
@@ -60,7 +78,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Logo */}
           <a
             href="#hero"
-            className="group flex items-center gap-2.5 text-left focus:outline-none"
+            onClick={(e) => handleNavClick(e, '#hero')}
+            className="group flex items-center gap-2.5 text-left focus:outline-none cursor-pointer"
           >
             <img
               src="/Logo-transparent.png"
@@ -83,7 +102,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               <a
                 key={link.label}
                 href={link.href}
-                className="text-[#241C18]/85 hover:text-[#B5613C] font-medium transition-colors relative py-1 group"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="text-[#241C18]/85 hover:text-[#B5613C] font-medium transition-colors relative py-1 group cursor-pointer"
               >
                 {link.label}
                 <span className="absolute bottom-0 left-0 w-0 h-[1.5px] bg-[#B5613C] transition-all duration-300 group-hover:w-full" />
@@ -163,8 +183,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <a
                   key={link.label}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="px-3 py-2 text-[#241C18] font-medium hover:bg-[#F1D9C3]/40 rounded-lg flex items-center justify-between transition-colors"
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="px-3 py-2 text-[#241C18] font-medium hover:bg-[#F1D9C3]/40 rounded-lg flex items-center justify-between transition-colors cursor-pointer"
                 >
                   <span>{link.label}</span>
                   <ChevronRight className="w-4 h-4 text-[#B5613C]" />
