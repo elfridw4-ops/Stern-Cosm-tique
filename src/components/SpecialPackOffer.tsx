@@ -17,7 +17,7 @@ export const SpecialPackOffer: React.FC<SpecialPackOfferProps> = ({
   const gentleEase = [0.25, 0.1, 0.25, 1.0];
 
   return (
-    <section id="pack" className="py-16 bg-[#FBE9E1]">
+    <section id="pack" className="py-16 bg-[#FBE9E1] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

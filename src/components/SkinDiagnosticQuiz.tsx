@@ -53,7 +53,7 @@ export const SkinDiagnosticQuiz: React.FC<SkinDiagnosticQuizProps> = ({
   );
 
   return (
-    <section className="py-16 bg-[#F1D9C3]/40 border-y border-[#F1D9C3]">
+    <section id="diagnostic" className="py-16 bg-[#F1D9C3]/40 border-y border-[#F1D9C3] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-10">
           <span className="font-sans-ui text-xs font-bold uppercase tracking-widest text-[#B5613C] px-3.5 py-1 rounded-full bg-white border border-[#B5613C]/20 inline-flex items-center gap-1.5 shadow-xs">

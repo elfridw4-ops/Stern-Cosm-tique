@@ -47,7 +47,7 @@ export const ProductCatalog: React.FC<ProductCatalogProps> = ({
   };
 
   return (
-    <section id="produits" className="py-20 bg-[#FBE9E1]">
+    <section id="produits" className="py-20 bg-[#FBE9E1] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

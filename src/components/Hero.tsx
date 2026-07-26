@@ -23,7 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onCartClick }) => {
     <section
       id="hero"
       onMouseMove={handleMouseMove}
-      className="relative min-h-[92vh] pt-28 pb-16 flex items-center justify-center overflow-hidden bg-[#FBE9E1]"
+      className="relative min-h-[92vh] pt-28 pb-16 flex items-center justify-center overflow-hidden bg-[#FBE9E1] scroll-mt-24"
     >
       {/* Background Soft Glow Accents */}
       <div className="absolute top-1/4 left-10 w-96 h-96 bg-[#B5613C]/5 rounded-full blur-3xl pointer-events-none" />

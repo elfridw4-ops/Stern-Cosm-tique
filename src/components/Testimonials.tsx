@@ -7,7 +7,7 @@ export const Testimonials: React.FC = () => {
   const gentleEase = [0.25, 0.1, 0.25, 1.0];
 
   return (
-    <section id="avis" className="py-20 bg-[#FBE9E1] border-t border-[#F1D9C3]">
+    <section id="avis" className="py-20 bg-[#FBE9E1] border-t border-[#F1D9C3] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         
         {/* Header */}

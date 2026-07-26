@@ -24,7 +24,7 @@ export const WhyChooseUs: React.FC = () => {
   ];
 
   return (
-    <section id="pourquoi" className="py-20 bg-[#FBE9E1] border-t border-[#F1D9C3]">
+    <section id="pourquoi" className="py-20 bg-[#FBE9E1] border-t border-[#F1D9C3] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           

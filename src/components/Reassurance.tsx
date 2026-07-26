@@ -6,7 +6,7 @@ export const Reassurance: React.FC = () => {
   const gentleEase = [0.25, 0.1, 0.25, 1.0];
 
   return (
-    <section id="reassurance" className="py-12 bg-[#FBE9E1] border-y border-[#F1D9C3]">
+    <section id="reassurance" className="py-12 bg-[#FBE9E1] border-y border-[#F1D9C3] scroll-mt-20 sm:scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 items-center text-center divide-y md:divide-y-0 md:divide-x divide-[#F1D9C3]">
           {REASSURANCE_METRICS.map((metric, index) => (

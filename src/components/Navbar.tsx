@@ -42,6 +42,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { label: 'Accueil', href: '#hero' },
     { label: 'Produits', href: '#produits' },
     { label: 'Offre Pack', href: '#pack' },
+    { label: 'Diagnostic', href: '#diagnostic' },
     { label: 'Pourquoi Stern', href: '#pourquoi' },
     { label: 'Avis', href: '#avis' },
     { label: 'Contact', href: '#contact' },
@@ -49,19 +50,32 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    const wasMobileOpen = mobileMenuOpen;
     setMobileMenuOpen(false);
 
     const targetId = href.replace('#', '');
-    if (targetId === 'hero') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
+
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, '', href);
     }
 
-    const element = document.getElementById(targetId);
-    if (element) {
-      const yOffset = -80;
-      const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+    const performScroll = () => {
+      if (targetId === 'hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    if (wasMobileOpen) {
+      // Delay slightly for mobile drawer collapse to finish so scroll positioning is 100% accurate
+      setTimeout(performScroll, 120);
+    } else {
+      performScroll();
     }
   };
 
