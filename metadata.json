@@ -1,0 +1,6 @@
+{
+  "name": "Stern Cosmétique",
+  "description": "Boutique e-commerce de soins cosmétiques naturels et élégants.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
