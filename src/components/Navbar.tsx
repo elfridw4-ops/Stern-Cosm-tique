@@ -60,11 +60,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Logo */}
           <a
             href="#hero"
-            className="group flex items-center gap-2 text-left focus:outline-none"
+            className="group flex items-center gap-2.5 text-left focus:outline-none"
           >
-            <div className="w-8 h-8 rounded-full bg-[#B5613C] text-white flex items-center justify-center font-serif italic text-lg font-bold shadow-sm transition-transform duration-300 group-hover:scale-105">
-              S
-            </div>
+            <img
+              src="/Logo-transparent.png"
+              alt="Stern Cosmétique"
+              className="h-9 sm:h-11 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
             <div className="flex flex-col">
               <span className="font-serif font-bold text-lg tracking-tight text-[#241C18] group-hover:text-[#B5613C] transition-colors">
                 Stern Cosmétique

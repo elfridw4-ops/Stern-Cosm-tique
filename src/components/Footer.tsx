@@ -19,9 +19,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) =
           
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#B5613C] text-white flex items-center justify-center font-serif italic text-lg font-bold">
-                S
+            <div className="flex items-center gap-3">
+              <div className="p-1.5 rounded-xl bg-white/10 backdrop-blur-xs flex items-center justify-center border border-white/10">
+                <img
+                  src="/Logo-transparent.png"
+                  alt="Stern Cosmétique"
+                  className="h-9 w-auto object-contain brightness-0 invert"
+                />
               </div>
               <span className="font-serif font-bold text-2xl tracking-tight text-white">
                 Stern Cosmétique
