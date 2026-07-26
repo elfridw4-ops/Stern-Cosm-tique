@@ -20,11 +20,23 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenWhatsApp }
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+
+    const formattedMessage = `Bonjour Stern Cosmétique, je souhaite obtenir un conseil beauté :
+
+📌 *Nom :* ${formData.fullName}
+📞 *Contact :* ${formData.emailOrPhone}
+✨ *Carnation / Type de peau :* ${formData.skinType}
+💬 *Message :* ${formData.message || 'Demande de conseil sur ma routine'}`;
+
+    const encodedText = encodeURIComponent(formattedMessage);
+    const whatsappUrl = `https://wa.me/22941634242?text=${encodedText}`;
+
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitted(true);
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
       setFormData({ fullName: '', emailOrPhone: '', skinType: 'Teint Caramel', message: '' });
-      setTimeout(() => setSubmitted(false), 5000);
+      setTimeout(() => setSubmitted(false), 8000);
     }, 600);
   };
 
