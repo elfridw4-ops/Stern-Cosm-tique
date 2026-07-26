@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Sparkles, Check, ArrowRight, RefreshCw, ShoppingBag } from 'lucide-react';
+import { Leaf, Check, ArrowRight, RefreshCw, ShoppingBag } from 'lucide-react';
 import { Product } from '../types';
 import { PRODUCTS } from '../data/products';
 
@@ -53,17 +53,17 @@ export const SkinDiagnosticQuiz: React.FC<SkinDiagnosticQuizProps> = ({
   );
 
   return (
-    <section className="py-16 bg-[#EFE8EE] border-y border-[#D8D2D8]/80">
+    <section className="py-16 bg-[#F1D9C3]/40 border-y border-[#F1D9C3]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center space-y-4 mb-10">
-          <span className="font-sans-ui text-xs font-bold uppercase tracking-widest text-[#6B3F63] px-3.5 py-1 rounded-full bg-white border border-[#6B3F63]/20 inline-flex items-center gap-1.5 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#6B3F63]" />
+          <span className="font-sans-ui text-xs font-bold uppercase tracking-widest text-[#B5613C] px-3.5 py-1 rounded-full bg-white border border-[#B5613C]/20 inline-flex items-center gap-1.5 shadow-xs">
+            <Leaf className="w-3.5 h-3.5 text-[#B5613C]" />
             <span>Diagnostic Beauté Personnalisé</span>
           </span>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#2A2430]">
+          <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#241C18]">
             Trouvez le soin exactement adapté à votre carnation
           </h2>
-          <p className="font-serif text-[#2A2430]/80 text-base">
+          <p className="font-serif text-[#241C18]/80 text-base">
             Sélectionnez votre type de teint pour découvrir la formule Stern recommandée par nos botanistes.
           </p>
         </div>
@@ -78,8 +78,8 @@ export const SkinDiagnosticQuiz: React.FC<SkinDiagnosticQuizProps> = ({
                 onClick={() => setSelectedTone(st.id)}
                 className={`p-4 rounded-2xl text-left font-serif transition-all duration-300 border cursor-pointer ${
                   isSelected
-                    ? 'bg-[#6B3F63] text-white border-[#6B3F63] shadow-md scale-102'
-                    : 'bg-white text-[#2A2430] border-[#D8D2D8] hover:border-[#6B3F63]/50'
+                    ? 'bg-[#B5613C] text-white border-[#B5613C] shadow-md scale-102'
+                    : 'bg-white text-[#241C18] border-[#F1D9C3] hover:border-[#B5613C]/50'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
@@ -88,7 +88,7 @@ export const SkinDiagnosticQuiz: React.FC<SkinDiagnosticQuizProps> = ({
                 </div>
                 <p
                   className={`text-[11px] font-sans-ui line-clamp-2 ${
-                    isSelected ? 'text-white/90' : 'text-[#2A2430]/70'
+                    isSelected ? 'text-white/90' : 'text-[#241C18]/70'
                   }`}
                 >
                   {st.desc}
@@ -107,41 +107,41 @@ export const SkinDiagnosticQuiz: React.FC<SkinDiagnosticQuizProps> = ({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -15 }}
               transition={{ duration: 0.3 }}
-              className="p-6 sm:p-8 rounded-3xl bg-white border border-[#D8D2D8] shadow-lg max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-6 text-left"
+              className="p-6 sm:p-8 rounded-3xl bg-white border border-[#F1D9C3] shadow-lg max-w-2xl mx-auto flex flex-col sm:flex-row items-center gap-6 text-left"
             >
               <img
                 src={recommendedProduct.image}
                 alt={recommendedProduct.name}
-                className="w-28 h-28 object-cover rounded-2xl shrink-0 border border-[#D8D2D8]"
+                className="w-28 h-28 object-cover rounded-2xl shrink-0 border border-[#F1D9C3]"
               />
               <div className="space-y-3 flex-1">
                 <div>
                   <span className="text-[11px] font-sans-ui font-bold uppercase tracking-wider text-[#278652] bg-[#278652]/10 px-2.5 py-0.5 rounded-full inline-block mb-1">
                     ✓ Recommandation Personnalisée
                   </span>
-                  <h3 className="font-serif font-bold text-xl text-[#2A2430]">
+                  <h3 className="font-serif font-bold text-xl text-[#241C18]">
                     {recommendedProduct.name} ({recommendedProduct.weight})
                   </h3>
-                  <p className="font-serif text-xs text-[#2A2430]/75 line-clamp-2 mt-0.5">
+                  <p className="font-serif text-xs text-[#241C18]/80 line-clamp-2 mt-0.5">
                     {recommendedProduct.description}
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-[#D8D2D8]/50">
-                  <span className="font-serif font-bold text-lg text-[#6B3F63]">
+                <div className="flex items-center justify-between pt-2 border-t border-[#F1D9C3]">
+                  <span className="font-serif font-bold text-lg text-[#B5613C]">
                     {recommendedProduct.price.toLocaleString('fr-FR')} FCFA
                   </span>
 
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => onOpenModal(recommendedProduct)}
-                      className="px-3.5 py-2 rounded-full border border-[#D8D2D8] text-xs font-sans-ui font-semibold text-[#2A2430] hover:bg-[#F5F2F5]"
+                      className="px-3.5 py-2 rounded-full border border-[#F1D9C3] text-xs font-sans-ui font-semibold text-[#241C18] hover:bg-[#FBE9E1]"
                     >
                       Détails
                     </button>
                     <button
                       onClick={() => onAddToCart(recommendedProduct)}
-                      className="px-4 py-2 rounded-full bg-[#6B3F63] hover:bg-[#522F4C] text-white text-xs font-sans-ui font-semibold flex items-center gap-1.5 shadow-sm"
+                      className="px-4 py-2 rounded-full bg-[#B5613C] hover:bg-[#9A4E2D] text-white text-xs font-sans-ui font-bold flex items-center gap-1.5 shadow-xs"
                     >
                       <ShoppingBag className="w-3.5 h-3.5" />
                       <span>Ajouter</span>

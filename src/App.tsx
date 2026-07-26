@@ -104,7 +104,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F2F5] text-[#2A2430] font-serif antialiased selection:bg-[#6B3F63] selection:text-white">
+    <div className="min-h-screen bg-[#FBE9E1] text-[#241C18] font-serif antialiased selection:bg-[#B5613C] selection:text-white">
       {/* Navigation */}
       <Navbar
         cartCount={totalCartCount}
