@@ -3,9 +3,10 @@ import { Heart, Sparkles, MessageCircle, ArrowUp } from 'lucide-react';
 
 interface FooterProps {
   onOpenWhatsApp: () => void;
+  onOpenLegal?: (tab: 'mentions' | 'privacy' | 'credits') => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -99,16 +100,25 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp }) => {
             © 2026 Stern Cosmétique — Beauté élégante et naturelle. Tous droits réservés.
           </p>
 
-          <div className="flex items-center gap-6">
-            <a href="#hero" className="hover:text-white transition-colors">
-              Mentions légales
-            </a>
-            <a href="#hero" className="hover:text-white transition-colors">
+          <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+            <button
+              onClick={() => onOpenLegal?.('mentions')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Mentions légales & Droits d'auteur
+            </button>
+            <button
+              onClick={() => onOpenLegal?.('privacy')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
               Politique de confidentialité
-            </a>
-            <a href="#hero" className="hover:text-white transition-colors">
-              Crédits
-            </a>
+            </button>
+            <button
+              onClick={() => onOpenLegal?.('credits')}
+              className="hover:text-white transition-colors cursor-pointer"
+            >
+              Propriété des Visuels
+            </button>
 
             <button
               onClick={scrollToTop}

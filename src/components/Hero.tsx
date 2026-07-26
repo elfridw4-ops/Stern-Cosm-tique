@@ -30,10 +30,10 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onCartClick }) => {
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-[#F1D9C3]/50 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
           
           {/* Left Content Column */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-6 space-y-6 text-left">
             {/* Title */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -111,60 +111,40 @@ export const Hero: React.FC<HeroProps> = ({ onExploreClick, onCartClick }) => {
           </div>
 
           {/* Right Editorial Image Showcase Column */}
-          <div className="lg:col-span-5 relative">
+          <div className="lg:col-span-6 relative">
             <motion.div
-              initial={{ opacity: 0, scale: 1.08 }}
+              initial={{ opacity: 0, scale: 1.04 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, delay: 0, ease: gentleEase }}
+              transition={{ duration: 0.8, delay: 0, ease: gentleEase }}
               style={{
-                x: mousePos.x * 12,
-                y: mousePos.y * 12,
+                x: mousePos.x * 8,
+                y: mousePos.y * 8,
               }}
-              className="relative rounded-2xl overflow-hidden shadow-2xl bg-[#F1D9C3]/50 border border-white/60 aspect-[4/5] group"
+              className="relative rounded-3xl overflow-hidden shadow-xl bg-[#FBE9E1] border border-[#F1D9C3] p-2 sm:p-3 flex items-center justify-center group"
             >
-              {/* Main Editorial Image */}
+              {/* Main Editorial Image - Full view uncropped */}
               <img
                 src="/images/hero-2.jpeg"
                 alt="Stern Cosmétique - Gamme de Soins Naturels"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-auto max-h-[640px] lg:max-h-[780px] object-contain rounded-2xl transition-transform duration-500 group-hover:scale-[1.01]"
               />
-
-              {/* Overlay Gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#241C18]/70 via-transparent to-transparent opacity-80" />
-
-              {/* Floating Glassmorphism Tag */}
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-xl bg-white/90 backdrop-blur-md border border-white/50 text-left shadow-lg">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] font-sans-ui uppercase tracking-widest text-[#B5613C] font-bold">
-                      Gamme Stern Premium
-                    </span>
-                    <p className="font-serif font-bold text-[#241C18] text-base">
-                      Savon Ozone & Crème Sublimatrice
-                    </p>
-                  </div>
-                  <span className="px-2.5 py-1 rounded-md bg-[#B5613C] text-white text-xs font-sans-ui font-semibold">
-                    100% Naturel
-                  </span>
-                </div>
-              </div>
             </motion.div>
 
             {/* Decorative Floating Accent Pill */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: gentleEase }}
-              className="absolute -top-4 -right-4 bg-white/95 backdrop-blur-sm p-3.5 rounded-2xl shadow-xl border border-[#F1D9C3] hidden sm:flex items-center gap-3"
+              transition={{ duration: 0.6, delay: 0.5, ease: gentleEase }}
+              className="absolute -top-4 -right-2 bg-white/95 backdrop-blur-sm p-3 rounded-2xl shadow-lg border border-[#F1D9C3] hidden sm:flex items-center gap-2.5 z-10"
             >
-              <div className="w-10 h-10 rounded-full bg-[#F1D9C3] flex items-center justify-center text-[#B5613C] font-serif font-bold text-lg">
+              <div className="w-8 h-8 rounded-full bg-[#F1D9C3] flex items-center justify-center text-[#B5613C] font-serif font-bold text-sm shrink-0">
                 ★
               </div>
               <div className="text-left">
                 <p className="text-xs font-sans-ui font-bold text-[#241C18]">
                   Garantie Satisfaction
                 </p>
-                <p className="text-[11px] text-[#241C18]/70 font-sans-ui">
+                <p className="text-[10px] text-[#241C18]/70 font-sans-ui">
                   Formules douces non décapantes
                 </p>
               </div>

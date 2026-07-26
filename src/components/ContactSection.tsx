@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'motion/react';
-import { Mail, Phone, MessageCircle, Send, CheckCircle2, Sparkles, MapPin } from 'lucide-react';
+import { Mail, Phone, MessageCircle, Send, CheckCircle2, MapPin } from 'lucide-react';
 
 interface ContactSectionProps {
   onOpenWhatsApp: () => void;
@@ -69,7 +69,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenWhatsApp }
                     </p>
                   </div>
                 </div>
-                <Sparkles className="w-4 h-4 text-[#278652] transition-transform group-hover:rotate-12" />
               </button>
 
               {/* Phone */}

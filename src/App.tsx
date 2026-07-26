@@ -11,6 +11,7 @@ import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { ProductModal } from './components/ProductModal';
+import { LegalModal } from './components/LegalModal';
 import { Toast } from './components/Toast';
 import { Product, CartItem } from './types';
 import { PRODUCTS } from './data/products';
@@ -28,6 +29,13 @@ export default function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isLegalOpen, setIsLegalOpen] = useState(false);
+  const [legalTab, setLegalTab] = useState<'mentions' | 'privacy' | 'credits'>('mentions');
+
+  const handleOpenLegal = (tab: 'mentions' | 'privacy' | 'credits' = 'mentions') => {
+    setLegalTab(tab);
+    setIsLegalOpen(true);
+  };
 
   useEffect(() => {
     try {
@@ -155,7 +163,10 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenWhatsApp={() => handleOpenWhatsApp()} />
+      <Footer
+        onOpenWhatsApp={() => handleOpenWhatsApp()}
+        onOpenLegal={handleOpenLegal}
+      />
 
       {/* Cart Slide-Over Drawer */}
       <CartDrawer
@@ -174,6 +185,13 @@ export default function App() {
         onClose={() => setSelectedProduct(null)}
         onAddToCart={handleAddToCart}
         onOpenWhatsApp={() => handleOpenWhatsApp()}
+      />
+
+      {/* Legal Modal */}
+      <LegalModal
+        isOpen={isLegalOpen}
+        initialTab={legalTab}
+        onClose={() => setIsLegalOpen(false)}
       />
 
       {/* Toast Notification */}
