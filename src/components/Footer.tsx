@@ -4,9 +4,10 @@ import { Heart, Sparkles, MessageCircle, ArrowUp, Share2, Copy, Check } from 'lu
 interface FooterProps {
   onOpenWhatsApp: () => void;
   onOpenLegal?: (tab: 'mentions' | 'privacy' | 'credits') => void;
+  onReplayIntro?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) => {
+export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal, onReplayIntro }) => {
   const [copied, setCopied] = useState(false);
 
   const scrollToTop = () => {
@@ -144,6 +145,17 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWhatsApp, onOpenLegal }) =
                   Contact & Conseils
                 </a>
               </li>
+              {onReplayIntro && (
+                <li className="pt-2">
+                  <button
+                    onClick={onReplayIntro}
+                    className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 text-xs bg-white/5 hover:bg-white/10 px-2.5 py-1 rounded-full border border-white/10 text-[#F1D9C3]"
+                  >
+                    <Sparkles className="w-3 h-3 text-[#B5613C]" />
+                    <span>Rejouer l'introduction</span>
+                  </button>
+                </li>
+              )}
             </ul>
           </div>
 

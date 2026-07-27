@@ -15,8 +15,36 @@ import { LegalModal } from './components/LegalModal';
 import { Toast } from './components/Toast';
 import { Product, CartItem } from './types';
 import { PRODUCTS } from './data/products';
+import { AnimatePresence } from 'motion/react';
+import { SplashIntro } from './components/SplashIntro';
 
 export default function App() {
+  const [isIntroComplete, setIsIntroComplete] = useState(() => {
+    try {
+      return sessionStorage.getItem('stern_intro_complete') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const handleIntroComplete = () => {
+    setIsIntroComplete(true);
+    try {
+      sessionStorage.setItem('stern_intro_complete', 'true');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleReplayIntro = () => {
+    setIsIntroComplete(false);
+    try {
+      sessionStorage.removeItem('stern_intro_complete');
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     try {
       const saved = localStorage.getItem('stern_cart');
@@ -203,6 +231,7 @@ export default function App() {
         onOpenCart={() => setIsCartOpen(true)}
         onNavigateToCatalog={() => scrollToSection('produits')}
         onOpenWhatsApp={() => handleOpenWhatsApp()}
+        onReplayIntro={handleReplayIntro}
       />
 
       {/* Main Content Sections */}
@@ -250,6 +279,7 @@ export default function App() {
       <Footer
         onOpenWhatsApp={() => handleOpenWhatsApp()}
         onOpenLegal={handleOpenLegal}
+        onReplayIntro={handleReplayIntro}
       />
 
       {/* Cart Slide-Over Drawer */}
@@ -280,6 +310,13 @@ export default function App() {
 
       {/* Toast Notification */}
       <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
+
+      {/* Elegant Entrance Intro Animation */}
+      <AnimatePresence>
+        {!isIntroComplete && (
+          <SplashIntro onComplete={handleIntroComplete} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
