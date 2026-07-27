@@ -8,7 +8,7 @@ interface ProductModalProps {
   product: Product | null;
   onClose: () => void;
   onAddToCart: (product: Product) => void;
-  onOpenWhatsApp: () => void;
+  onOpenWhatsApp: (customText?: string) => void;
 }
 
 export const ProductModal: React.FC<ProductModalProps> = ({
@@ -198,7 +198,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                   <button
                     onClick={() => {
                       onClose();
-                      onOpenWhatsApp();
+                      onOpenWhatsApp(`Bonjour Stern Cosmétique 👋, je souhaite commander le produit "${product.name}" (${product.price.toLocaleString('fr-FR')} FCFA).`);
                     }}
                     className="py-3.5 px-5 rounded-full bg-[#241C18] hover:bg-[#B5613C] text-white font-sans-ui text-xs font-semibold transition-colors shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
                   >

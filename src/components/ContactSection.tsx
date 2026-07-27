@@ -21,7 +21,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenWhatsApp }
     e.preventDefault();
     setIsSubmitting(true);
 
-    const formattedMessage = `Bonjour Stern Cosmétique, je souhaite obtenir un conseil beauté (via https://stern-cosm.vercel.app) :
+    const formattedMessage = `Bonjour Stern Cosmétique, je souhaite obtenir un conseil beauté :
 
 📌 *Nom :* ${formData.fullName}
 📞 *Contact :* ${formData.emailOrPhone}
